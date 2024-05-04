@@ -1,6 +1,7 @@
+#Setup
 import pandas as pd
 
-#Reading File
+#Reading CSV File
 vehicles = pd.read_csv("Vehicle__Snowmobile__and_Boat_Registrations_20240402.csv", dtype={"Zip":str})
 
 #Selecting Corresponding Columns (Vehicles and Electric)
