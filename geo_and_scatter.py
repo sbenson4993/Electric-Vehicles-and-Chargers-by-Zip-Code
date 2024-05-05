@@ -51,7 +51,7 @@ ny_data['chargers_above_average'] = (ny_data['num_chargers'] > mean_chargers).as
 #Column Categorizing Zip Code
 #(0 = Below Average Chargers and Vehicles, 1 = Above Average Chargers and Below Average Vehicles,
 #2 = Below Average Chargers and Above Average Vehicles, 3 = Above Average Vehicles and Chargers) 
-ny_data["code"] = ny_data['vehicles_above_average']*2 + ny_data['chargers_above_average']
+ny_data["average_category"] = ny_data['vehicles_above_average']*2 + ny_data['chargers_above_average']
 
 #Saving 'ny_data' as a GeoPackage
 output_gpkg_path = 'ny_data.gpkg'
@@ -62,11 +62,18 @@ ny_data = ny_data.to_crs(26918)
 ny_data["chargers_per_square_kilometer"] = ny_data["num_chargers"] / (ny_data.area/1e6)
 ny_data["vehicles_per_square_kilometer"] = ny_data["num_vehicles"] / (ny_data.area/1e6)
 
+#Mean per Square Kilometer
+mean_chargers_per_square_km = ny_data["chargers_per_square_kilometer"].mean()
+mean_vehicles_per_square_km = ny_data["vehicles_per_square_kilometer"].mean()
+print ("\nMean Chargers per Square Kilometer:\n",mean_chargers_per_square_km)
+print ("\nMean Vehicles per Square Kilometer:\n",mean_vehicles_per_square_km)
+
+
 #Scatter Plot Creation
 fig1,ax1 = plt.subplots()
 ny_data.plot.scatter(x="chargers_per_square_kilometer",y="vehicles_per_square_kilometer", ax=ax1)
-plt.axvline(x=mean_chargers, color='red', linestyle='--', label='Mean Chargers')
-plt.axhline(y=mean_vehicles, color='blue', linestyle='--', label='Mean Vehicles')
+plt.axvline(x=mean_chargers_per_square_km, color='red', linestyle='--', label='Mean Chargers per Square Kilometer')
+plt.axhline(y=mean_vehicles_per_square_km, color='blue', linestyle='--', label='Mean Vehicles per Square Kilometer')
 plt.xlabel('Chargers per Square Kilometer')
 plt.ylabel('Vehicles per Square Kilometer')
 plt.title('Vehicles and Chargers per Square Kilometer')
@@ -74,3 +81,4 @@ plt.legend()
 plt.show()
 fig1.tight_layout()
 fig1.savefig("Vehicles_and_Chargers_per_Square_Kilometer.png",dpi=300)
+
