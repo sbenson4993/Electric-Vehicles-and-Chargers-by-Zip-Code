@@ -51,8 +51,8 @@ ny_data['vehicles_above_average'] = (ny_data['num_vehicles'] > mean_vehicles).as
 ny_data['chargers_above_average'] = (ny_data['num_chargers'] > mean_chargers).astype(int)
 
 #Column Categorizing Zip Code
-#(0 = Below Average Chargers and Vehicles, 1 = Above Average Chargers and Below Average Vehicles,
-#2 = Below Average Chargers and Above Average Vehicles, 3 = Above Average Vehicles and Chargers) 
+#(#0 = Below Average Chargers and Vehicles, #1 = Above Average Chargers and Below Average Vehicles,
+#2 = Below Average Chargers and Above Average Vehicles, #3 = Above Average Vehicles and Chargers) 
 ny_data["average_category"] = ny_data['vehicles_above_average']*2 + ny_data['chargers_above_average']
 
 #Saving 'ny_data' as a GeoPackage
