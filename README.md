@@ -5,6 +5,8 @@ With the growing affordability and demand for electric vehicles, there is a need
 
 ## Script Descriptions:
 
+[ev_chargers.py](ev_chargers.py)
+
 1. **ev_chargers.py:** The purpose of this script is to retrieve data from the National Renewable Energy Laboratory regarding locations for charging stations. By using a key value for the API, the data for New York is retrieved and a CSV file is created titled "EV_Chargers.csv" that contains all the necessary information regarding the locations of charging stations. 
 2. **vehicles.py:** Opposed to the "ev_chargers.py" script, this script simply reads a CSV file titled "Vehicle, Snowmobile, and Boat Registrations" obtained from Data.NY.Gov which contains all vehicle registrations in New York State. This script also pulls out information from the file and creates a new CSV file titled "Electric_Vehicles_NY_2024.csv" that contains information on every electric vehicle in the state.  
 3. **vehicles_and_chargers.py:** This script merges the two CSV files that were created in the previous two scripts into a new DataFrame titled "ny_data." Zip codes not belonging to New York State are also categorized as non-NY in this script; this ensures that the data remains unchanged while also giving an indicator of what in this DataFrame is not from New York State. A new DataFrame is created to handle these zip codes from out of state, that DataFrame is titled "non_ny_zip" and is used to sum up the number of vehicles as well as chargers not from New York provided by the original data sources. With everything categorized, the "ny_data" DataFrame is converted to a pickle file for conversion to a GeoPackage and further analysis.
