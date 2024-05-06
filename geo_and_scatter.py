@@ -3,7 +3,6 @@ import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-
 #Reading Pickle File
 ny_data = pd.read_pickle("ny_data.pkl")
 
@@ -35,7 +34,10 @@ totals = grouped[["num_vehicles","num_chargers"]].sum()
 print("Shares and Separate Values Appearing in the DataFrames:\n",ny_data["_merge"].value_counts())
 print ("\nVehicles and Chargers with Out of State or Unmappable Zip Codes:\n", totals)
 
-#Drop _merge Column
+#Dropping Rows Where Data is Only in the Right Dataset
+ny_data = ny_data[ny_data["_merge"]!="right_only"]
+
+#Drop '_merge' Column
 ny_data = ny_data.drop(columns="_merge")
 
 #Calculating Averages per Zip Code
@@ -68,7 +70,6 @@ mean_vehicles_per_square_km = ny_data["vehicles_per_square_kilometer"].mean()
 print ("\nMean Chargers per Square Kilometer:\n",mean_chargers_per_square_km)
 print ("\nMean Vehicles per Square Kilometer:\n",mean_vehicles_per_square_km)
 
-
 #Scatter Plot Creation
 fig1,ax1 = plt.subplots()
 ny_data.plot.scatter(x="chargers_per_square_kilometer",y="vehicles_per_square_kilometer", ax=ax1)
@@ -81,4 +82,6 @@ plt.legend()
 plt.show()
 fig1.tight_layout()
 fig1.savefig("Vehicles_and_Chargers_per_Square_Kilometer.png",dpi=300)
+
+
 

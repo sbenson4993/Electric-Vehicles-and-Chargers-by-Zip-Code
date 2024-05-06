@@ -10,4 +10,3 @@ vehicles = vehicles[vehicles['Record Type'] == 'VEH']
 
 #Converting to CSV
 vehicles.to_csv("Electric_Vehicles_NY_2024.csv",index=False)
-
